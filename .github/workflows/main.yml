@@ -2,6 +2,8 @@ name: Deploy to AWS S3 BUCKET
 
 on:
   push:
+    paths:
+      - 'aws-zero-to-pro/Day03/**'  # Trigger workflow on changes in Day03 folder
     branches:
       - main
 
@@ -12,6 +14,11 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
+
+    - name: Debug Environment Variables
+      run: echo "S3_BUCKET_NAME=$S3_BUCKET_NAME"
+      env:
+        S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET }}
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -24,4 +31,5 @@ jobs:
       run: |
         aws s3 sync . s3://$S3_BUCKET_NAME --acl public-read --follow-symlinks --delete --exclude ".git/*"
       env:
-        S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET }}  # Bucket name stored in GitHub Secrets
+        S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET }}
+      working-directory: aws-zero-to-pro/Day03
