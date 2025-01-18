@@ -8,7 +8,7 @@ on:
       - main  # Adjust to the branch you're using (e.g., `main`)
 
 jobs:
-  deploy:
+  deploy: 
     runs-on: ubuntu-latest
 
     steps:
