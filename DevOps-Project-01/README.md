@@ -1,1 +1,1 @@
-# Deploy Java Application on AWS 3-Tier Architecture
+# Deploy SpringBoot Application on AWS 3-Tier Architecture
