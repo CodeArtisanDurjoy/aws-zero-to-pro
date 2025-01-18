@@ -22,4 +22,4 @@ jobs:
         AWS_REGION: 'ap-south-1'  # Adjust to your region
         S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}  # S3 bucket name stored in GitHub Secrets
       run: |
-        aws s3 sync ./aws-zero-to-pro/Day03/ s3://$devops.durjoy --delete --exclude ".git/*"  # Sync the Day03 folder to S3
+        aws s3 sync ./aws-zero-to-pro/Day03/ s3://$S3_BUCKET_NAME --delete --exclude ".git/*"  # Sync the Day03 folder to S3
