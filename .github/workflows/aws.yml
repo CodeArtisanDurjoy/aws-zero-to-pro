@@ -1,19 +1,30 @@
+name: Deploy to AWS S3 BUCKET
+
 on:
   push:
+    paths:
+      - 'aws-zero-to-pro/Day03/**'  # Trigger the workflow on changes inside the Day03 folder
     branches:
-    - main
+      - main  # Adjust to the branch you're using (e.g., `main`)
 
 jobs:
-  deploy:
+  deploy: 
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@master
-    - uses: jakejarvis/s3-sync-action@master
+    - name: Checkout code
+      uses: actions/checkout@master
+
+    - name: Configure AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
       with:
-        args: --acl public-read --follow-symlinks --delete
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: 'ap-south-1'  # Adjust to your region
+
+    - name: Sync static files to AWS S3
+      run: |
+        aws s3 sync . s3://$S3_BUCKET_NAME --delete --exclude ".git/*"  # Sync the current directory to S3
       env:
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: 'us-west-1'   # optional: defaults to us-east-1
-        SOURCE_DIR: 'public'      # optional: defaults to entire repository
+        S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}  # S3 bucket name stored in GitHub Secrets
+      working-directory: aws-zero-to-pro/Day03  # Set the working directory to Day03
