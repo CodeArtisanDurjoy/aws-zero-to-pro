@@ -10,6 +10,7 @@ on:
 jobs:
   deploy: 
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -23,6 +24,7 @@ jobs:
 
     - name: Sync static files to AWS S3
       run: |
-        aws s3 sync ./aws-zero-to-pro/Day03/ s3://$S3_BUCKET_NAME --delete --exclude ".git/*"  # Sync the Day03 folder to S3
+        aws s3 sync . s3://$S3_BUCKET_NAME --delete --exclude ".git/*"  # Sync the current directory to S3
       env:
         S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}  # S3 bucket name stored in GitHub Secrets
+      working-directory: aws-zero-to-pro/Day03  # Set the working directory to Day03
