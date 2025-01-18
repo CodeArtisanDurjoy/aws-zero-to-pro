@@ -1,4 +1,4 @@
-name: Deploy to AWS S3 BUCKET 
+name: Deploy to AWS S3 BUCKET
 
 on:
   push:
@@ -8,12 +8,12 @@ on:
       - main  # Adjust to the branch you're using (e.g., `main`)
 
 jobs:
-  deploy:
+  deploy: 
     runs-on: ubuntu-latest
 
     steps:
-    - name: Sync S3
-      uses: dmolik/sync-s3-action@v0.1.0
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Sync static files to AWS S3
       env:
