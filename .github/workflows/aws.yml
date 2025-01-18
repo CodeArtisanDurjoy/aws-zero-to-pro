@@ -3,7 +3,7 @@ name: Deploy to AWS S3 BUCKET
 on:
   push:
     paths:
-      - 'aws-zero-to-pro/Day03/**'  # Trigger workflow on changes in Day03 folder
+      - 'aws-zero-to-pro/Day03/**'  
     branches:
       - main
 
