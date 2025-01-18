@@ -27,4 +27,4 @@ jobs:
         aws s3 sync . s3://$S3_BUCKET_NAME --acl public-read --follow-symlinks --delete --exclude ".git/*"
       env:
         S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET }}  # Bucket name stored in GitHub Secrets
-      working-directory: aws-zero-to-pro/Day03  # Set working directory to Day03 folder
+      working-directory: aws-zero-to-pro/Day03  # Set working directory to Day03
